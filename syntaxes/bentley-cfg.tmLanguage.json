@@ -1,0 +1,224 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Bentley CFG",
+  "scopeName": "source.bentley-cfg",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#directives"
+    },
+    {
+      "include": "#conditionals"
+    },
+    {
+      "include": "#variables"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#numbers"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#operators"
+    },
+    {
+      "include": "#functions"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.bentley-cfg",
+          "begin": "#",
+          "end": "$",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.bentley-cfg"
+            }
+          }
+        }
+      ]
+    },
+    "directives": {
+      "patterns": [
+        {
+          "name": "keyword.control.directive.include.bentley-cfg",
+          "match": "%include\\b"
+        },
+        {
+          "name": "keyword.control.directive.error.bentley-cfg",
+          "match": "%error\\b"
+        }
+      ]
+    },
+    "conditionals": {
+      "patterns": [
+        {
+          "name": "keyword.control.conditional.bentley-cfg",
+          "match": "\\b(%if|%ifdef|%ifndef|%else|%elif|%endif)\\b"
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "name": "variable.other.readwrite.bentley-cfg",
+          "begin": "\\$\\{",
+          "end": "\\}",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.variable.begin.bentley-cfg"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.variable.end.bentley-cfg"
+            }
+          },
+          "patterns": [
+            {
+              "name": "variable.other.readwrite.bentley-cfg",
+              "match": "[^}]+"
+            }
+          ]
+        },
+        {
+          "name": "variable.other.readwrite.bentley-cfg",
+          "begin": "\\$\\(",
+          "end": "\\)",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.variable.begin.bentley-cfg"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.variable.end.bentley-cfg"
+            }
+          },
+          "patterns": [
+            {
+              "name": "variable.other.readwrite.bentley-cfg",
+              "match": "[^)]+"
+            }
+          ]
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.bentley-cfg",
+          "begin": "\"",
+          "end": "\"",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.bentley-cfg"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.bentley-cfg"
+            }
+          },
+          "patterns": [
+            {
+              "name": "constant.character.escape.bentley-cfg",
+              "match": "\\\\."
+            },
+            {
+              "include": "#variables"
+            }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.bentley-cfg",
+          "match": "\\b\\d+(\\.\\d+)?\\b"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "constant.language.level.bentley-cfg",
+          "match": "\\b(level|level Application)\\b"
+        },
+        {
+          "name": "variable.other.constant.bundle.bentley-cfg",
+          "match": "\\b(_BUNDLE_DEPLOYMENTIMAGE_GUID|_DGNDIR)\\b"
+        },
+        {
+          "name": "variable.other.constant.raster.bentley-cfg",
+          "match": "\\b(_MS_RASTERKIN_REGERRORCODE|BENTLEY_DGNDBIMPORTER_PUBLISH2DMODELS)\\b"
+        },
+        {
+          "name": "variable.other.constant.dataset.bentley-cfg",
+          "match": "\\b(_BB_DATASET_ORGANIZATION_DG_LOCK|_BB_EXPOSE_ANALYSIS_STAAD|_BB_SHOW_DATASET_LOAD_MSGS)\\b"
+        },
+        {
+          "name": "variable.other.constant.config.bentley-cfg",
+          "match": "\\b(_ACFG_CHECK|_BENTLEY_STANDARDS|_BENTLEY_STANDARDS_BRIDGE)\\b"
+        },
+        {
+          "name": "variable.other.constant.bentley.bentley-cfg",
+          "match": "\\b(_BENTLEYPOWERMAP|_BENTLEYPOWERMAPFIELD|_BENTLEYREDLINE|_BENTLEYVIEW)\\b"
+        },
+        {
+          "name": "variable.other.constant.system.bentley-cfg",
+          "match": "\\b(ALLUSERSPROFILE|CAPABILITY_ACTIVATE_REFERENCE_EXTERNAL)\\b"
+        },
+        {
+          "name": "variable.other.constant.dynamic.bentley-cfg",
+          "match": "\\b(_ConfigProcess|_DYNAMIC_BENTLEY_PWSETUP|_DYNAMIC_CEORGANIZATIONROOT)\\b"
+        },
+        {
+          "name": "constant.language.boolean.bentley-cfg",
+          "match": "\\b(true|false)\\b"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.bentley-cfg",
+          "match": "[:\\+\\-><!=|&%/]"
+        }
+      ]
+    },
+    "functions": {
+      "patterns": [
+        {
+          "name": "support.function.path.bentley-cfg",
+          "match": "\\b(dev|dir|devdir|lastdirpiece|parentdir|parentdevdir|basename|filename|ext|noext|first|LASTDIRPIECE)\\b"
+        },
+        {
+          "name": "support.function.string.bentley-cfg",
+          "match": "\\b(concat|build)\\b"
+        },
+        {
+          "name": "support.function.conditional.bentley-cfg",
+          "match": "\\b(defined|!defined|exists)\\b"
+        },
+        {
+          "name": "support.function.control.bentley-cfg",
+          "match": "\\b(include|lock|error|undef|echo)\\b"
+        },
+        {
+          "name": "support.function.dms.bentley-cfg",
+          "match": "\\b(DMS_CONNECTEDPROJECTGUID|DMS_CONNECTEDPROJECT|DMS_PARENTPROJECT|DMS_PROJECT|dms_folder_by_id|dms_document_by_guid)\\b"
+        }
+      ]
+    }
+  }
+}
